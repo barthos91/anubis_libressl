@@ -4102,3 +4102,31 @@
 #define LN_chacha20		"chacha"
 #define NID_chacha20		937
 
+#define SN_anubis_128_cbc		"ANUBIS-128-CBC"
+#define LN_anubis_128_cbc		"anubis-128-cbc"
+#define NID_anubis_128_cbc		938
+
+#define SN_anubis_160_cbc		"ANUBIS-160-CBC"
+#define LN_anubis_160_cbc		"anubis-160-cbc"
+#define NID_anubis_160_cbc		939
+
+#define SN_anubis_192_cbc		"ANUBIS-192-CBC"
+#define LN_anubis_192_cbc		"anubis-192-cbc"
+#define NID_anubis_192_cbc		940
+
+#define SN_anubis_224_cbc		"ANUBIS-224-CBC"
+#define LN_anubis_224_cbc		"anubis-224-cbc"
+#define NID_anubis_224_cbc		941
+
+#define SN_anubis_256_cbc		"ANUBIS-256-CBC"
+#define LN_anubis_256_cbc		"anubis-256-cbc"
+#define NID_anubis_256_cbc		942
+
+#define SN_anubis_288_cbc		"ANUBIS-288-CBC"
+#define LN_anubis_288_cbc		"anubis-288-cbc"
+#define NID_anubis_288_cbc		943
+
+#define SN_anubis_320_cbc		"ANUBIS-320-CBC"
+#define LN_anubis_320_cbc		"anubis-320-cbc"
+#define NID_anubis_320_cbc		944
+

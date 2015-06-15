@@ -80,36 +80,43 @@ host_triplet = x86_64-unknown-linux-gnu
 DIST_COMMON = $(top_srcdir)/Makefile.am.common $(srcdir)/Makefile.in \
 	$(srcdir)/Makefile.am $(top_srcdir)/depcomp \
 	$(top_srcdir)/test-driver
-TESTS = $(am__append_1) aes_wrap$(EXEEXT) asn1test$(EXEEXT) \
-	base64test$(EXEEXT) bftest$(EXEEXT) bntest$(EXEEXT) \
-	casttest$(EXEEXT) chachatest$(EXEEXT) cts128test$(EXEEXT) \
-	destest$(EXEEXT) dhtest$(EXEEXT) dsatest$(EXEEXT) \
-	ecdhtest$(EXEEXT) ecdsatest$(EXEEXT) ectest$(EXEEXT) \
-	enginetest$(EXEEXT) explicit_bzero$(EXEEXT) exptest$(EXEEXT) \
-	gcm128test$(EXEEXT) hmactest$(EXEEXT) ideatest$(EXEEXT) \
-	igetest$(EXEEXT) md4test$(EXEEXT) md5test$(EXEEXT) \
-	mdc2test$(EXEEXT) mont$(EXEEXT) pkcs7test$(EXEEXT) \
-	poly1305test$(EXEEXT) randtest$(EXEEXT) rc2test$(EXEEXT) \
-	rc4test$(EXEEXT) rmdtest$(EXEEXT) sha1test$(EXEEXT) \
-	sha256test$(EXEEXT) sha512test$(EXEEXT) shatest$(EXEEXT) \
-	timingsafe$(EXEEXT) utf8test$(EXEEXT) aeadtest.sh evptest.sh \
-	pq_test.sh ssltest.sh arc4randomforktest.sh
-check_PROGRAMS = aeadtest$(EXEEXT) aes_wrap$(EXEEXT) \
-	arc4randomforktest$(EXEEXT) asn1test$(EXEEXT) \
-	base64test$(EXEEXT) bftest$(EXEEXT) biotest$(EXEEXT) \
+TESTS = $(am__append_1) aes_wrap$(EXEEXT) test_anubis_128$(EXEEXT) \
+	test_anubis_160$(EXEEXT) test_anubis_192$(EXEEXT) \
+	test_anubis_224$(EXEEXT) test_anubis_256$(EXEEXT) \
+	test_anubis_288$(EXEEXT) test_anubis_320$(EXEEXT) \
+	asn1test$(EXEEXT) base64test$(EXEEXT) bftest$(EXEEXT) \
 	bntest$(EXEEXT) casttest$(EXEEXT) chachatest$(EXEEXT) \
 	cts128test$(EXEEXT) destest$(EXEEXT) dhtest$(EXEEXT) \
 	dsatest$(EXEEXT) ecdhtest$(EXEEXT) ecdsatest$(EXEEXT) \
-	ectest$(EXEEXT) enginetest$(EXEEXT) evptest$(EXEEXT) \
-	explicit_bzero$(EXEEXT) exptest$(EXEEXT) gcm128test$(EXEEXT) \
-	hmactest$(EXEEXT) ideatest$(EXEEXT) igetest$(EXEEXT) \
-	md4test$(EXEEXT) md5test$(EXEEXT) mdc2test$(EXEEXT) \
-	mont$(EXEEXT) pidwraptest$(EXEEXT) pkcs7test$(EXEEXT) \
-	poly1305test$(EXEEXT) pq_test$(EXEEXT) randtest$(EXEEXT) \
+	ectest$(EXEEXT) enginetest$(EXEEXT) explicit_bzero$(EXEEXT) \
+	exptest$(EXEEXT) gcm128test$(EXEEXT) hmactest$(EXEEXT) \
+	ideatest$(EXEEXT) igetest$(EXEEXT) md4test$(EXEEXT) \
+	md5test$(EXEEXT) mdc2test$(EXEEXT) mont$(EXEEXT) \
+	pkcs7test$(EXEEXT) poly1305test$(EXEEXT) randtest$(EXEEXT) \
 	rc2test$(EXEEXT) rc4test$(EXEEXT) rmdtest$(EXEEXT) \
 	sha1test$(EXEEXT) sha256test$(EXEEXT) sha512test$(EXEEXT) \
-	shatest$(EXEEXT) ssltest$(EXEEXT) timingsafe$(EXEEXT) \
-	utf8test$(EXEEXT)
+	shatest$(EXEEXT) timingsafe$(EXEEXT) utf8test$(EXEEXT) \
+	aeadtest.sh evptest.sh pq_test.sh ssltest.sh \
+	arc4randomforktest.sh
+check_PROGRAMS = aeadtest$(EXEEXT) aes_wrap$(EXEEXT) \
+	test_anubis_128$(EXEEXT) test_anubis_160$(EXEEXT) \
+	test_anubis_192$(EXEEXT) test_anubis_224$(EXEEXT) \
+	test_anubis_256$(EXEEXT) test_anubis_288$(EXEEXT) \
+	test_anubis_320$(EXEEXT) arc4randomforktest$(EXEEXT) \
+	asn1test$(EXEEXT) base64test$(EXEEXT) bftest$(EXEEXT) \
+	biotest$(EXEEXT) bntest$(EXEEXT) casttest$(EXEEXT) \
+	chachatest$(EXEEXT) cts128test$(EXEEXT) destest$(EXEEXT) \
+	dhtest$(EXEEXT) dsatest$(EXEEXT) ecdhtest$(EXEEXT) \
+	ecdsatest$(EXEEXT) ectest$(EXEEXT) enginetest$(EXEEXT) \
+	evptest$(EXEEXT) explicit_bzero$(EXEEXT) exptest$(EXEEXT) \
+	gcm128test$(EXEEXT) hmactest$(EXEEXT) ideatest$(EXEEXT) \
+	igetest$(EXEEXT) md4test$(EXEEXT) md5test$(EXEEXT) \
+	mdc2test$(EXEEXT) mont$(EXEEXT) pidwraptest$(EXEEXT) \
+	pkcs7test$(EXEEXT) poly1305test$(EXEEXT) pq_test$(EXEEXT) \
+	randtest$(EXEEXT) rc2test$(EXEEXT) rc4test$(EXEEXT) \
+	rmdtest$(EXEEXT) sha1test$(EXEEXT) sha256test$(EXEEXT) \
+	sha512test$(EXEEXT) shatest$(EXEEXT) ssltest$(EXEEXT) \
+	timingsafe$(EXEEXT) utf8test$(EXEEXT)
 #am__append_1 = pidwraptest.sh
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -294,6 +301,34 @@ am_ssltest_OBJECTS = ssltest.$(OBJEXT)
 ssltest_OBJECTS = $(am_ssltest_OBJECTS)
 ssltest_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
 	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_128_OBJECTS = test_anubis_128.$(OBJEXT)
+test_anubis_128_OBJECTS = $(am_test_anubis_128_OBJECTS)
+test_anubis_128_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_160_OBJECTS = test_anubis_160.$(OBJEXT)
+test_anubis_160_OBJECTS = $(am_test_anubis_160_OBJECTS)
+test_anubis_160_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_192_OBJECTS = test_anubis_192.$(OBJEXT)
+test_anubis_192_OBJECTS = $(am_test_anubis_192_OBJECTS)
+test_anubis_192_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_224_OBJECTS = test_anubis_224.$(OBJEXT)
+test_anubis_224_OBJECTS = $(am_test_anubis_224_OBJECTS)
+test_anubis_224_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_256_OBJECTS = test_anubis_256.$(OBJEXT)
+test_anubis_256_OBJECTS = $(am_test_anubis_256_OBJECTS)
+test_anubis_256_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_288_OBJECTS = test_anubis_288.$(OBJEXT)
+test_anubis_288_OBJECTS = $(am_test_anubis_288_OBJECTS)
+test_anubis_288_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+am_test_anubis_320_OBJECTS = test_anubis_320.$(OBJEXT)
+test_anubis_320_OBJECTS = $(am_test_anubis_320_OBJECTS)
+test_anubis_320_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
 am_timingsafe_OBJECTS = timingsafe.$(OBJEXT)
 timingsafe_OBJECTS = $(am_timingsafe_OBJECTS)
 timingsafe_DEPENDENCIES = $(top_builddir)/ssl/libssl.la \
@@ -351,7 +386,11 @@ SOURCES = $(aeadtest_SOURCES) $(aes_wrap_SOURCES) \
 	$(pq_test_SOURCES) $(randtest_SOURCES) $(rc2test_SOURCES) \
 	$(rc4test_SOURCES) $(rmdtest_SOURCES) $(sha1test_SOURCES) \
 	$(sha256test_SOURCES) $(sha512test_SOURCES) $(shatest_SOURCES) \
-	$(ssltest_SOURCES) $(timingsafe_SOURCES) $(utf8test_SOURCES)
+	$(ssltest_SOURCES) $(test_anubis_128_SOURCES) \
+	$(test_anubis_160_SOURCES) $(test_anubis_192_SOURCES) \
+	$(test_anubis_224_SOURCES) $(test_anubis_256_SOURCES) \
+	$(test_anubis_288_SOURCES) $(test_anubis_320_SOURCES) \
+	$(timingsafe_SOURCES) $(utf8test_SOURCES)
 DIST_SOURCES = $(aeadtest_SOURCES) $(aes_wrap_SOURCES) \
 	$(arc4randomforktest_SOURCES) $(asn1test_SOURCES) \
 	$(base64test_SOURCES) $(bftest_SOURCES) $(biotest_SOURCES) \
@@ -367,7 +406,11 @@ DIST_SOURCES = $(aeadtest_SOURCES) $(aes_wrap_SOURCES) \
 	$(pq_test_SOURCES) $(randtest_SOURCES) $(rc2test_SOURCES) \
 	$(rc4test_SOURCES) $(rmdtest_SOURCES) $(sha1test_SOURCES) \
 	$(sha256test_SOURCES) $(sha512test_SOURCES) $(shatest_SOURCES) \
-	$(ssltest_SOURCES) $(timingsafe_SOURCES) $(utf8test_SOURCES)
+	$(ssltest_SOURCES) $(test_anubis_128_SOURCES) \
+	$(test_anubis_160_SOURCES) $(test_anubis_192_SOURCES) \
+	$(test_anubis_224_SOURCES) $(test_anubis_256_SOURCES) \
+	$(test_anubis_288_SOURCES) $(test_anubis_320_SOURCES) \
+	$(timingsafe_SOURCES) $(utf8test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -725,6 +768,27 @@ aeadtest_LDADD = $(top_builddir)/ssl/libssl.la \
 aes_wrap_SOURCES = aes_wrap.c
 aes_wrap_LDADD = $(top_builddir)/ssl/libssl.la \
 	$(top_builddir)/crypto/libcrypto.la
+test_anubis_128_SOURCES = test_anubis_128.c
+test_anubis_128_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_160_SOURCES = test_anubis_160.c
+test_anubis_160_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_192_SOURCES = test_anubis_192.c
+test_anubis_192_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_224_SOURCES = test_anubis_224.c
+test_anubis_224_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_256_SOURCES = test_anubis_256.c
+test_anubis_256_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_288_SOURCES = test_anubis_288.c
+test_anubis_288_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
+test_anubis_320_SOURCES = test_anubis_320.c
+test_anubis_320_LDADD = $(top_builddir)/ssl/libssl.la \
+	$(top_builddir)/crypto/libcrypto.la
 arc4randomforktest_SOURCES = arc4randomforktest.c
 arc4randomforktest_LDADD = $(top_builddir)/ssl/libssl.la \
 	$(top_builddir)/crypto/libcrypto.la
@@ -1064,6 +1128,34 @@ ssltest$(EXEEXT): $(ssltest_OBJECTS) $(ssltest_DEPENDENCIES) $(EXTRA_ssltest_DEP
 	@rm -f ssltest$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(ssltest_OBJECTS) $(ssltest_LDADD) $(LIBS)
 
+test_anubis_128$(EXEEXT): $(test_anubis_128_OBJECTS) $(test_anubis_128_DEPENDENCIES) $(EXTRA_test_anubis_128_DEPENDENCIES) 
+	@rm -f test_anubis_128$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_128_OBJECTS) $(test_anubis_128_LDADD) $(LIBS)
+
+test_anubis_160$(EXEEXT): $(test_anubis_160_OBJECTS) $(test_anubis_160_DEPENDENCIES) $(EXTRA_test_anubis_160_DEPENDENCIES) 
+	@rm -f test_anubis_160$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_160_OBJECTS) $(test_anubis_160_LDADD) $(LIBS)
+
+test_anubis_192$(EXEEXT): $(test_anubis_192_OBJECTS) $(test_anubis_192_DEPENDENCIES) $(EXTRA_test_anubis_192_DEPENDENCIES) 
+	@rm -f test_anubis_192$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_192_OBJECTS) $(test_anubis_192_LDADD) $(LIBS)
+
+test_anubis_224$(EXEEXT): $(test_anubis_224_OBJECTS) $(test_anubis_224_DEPENDENCIES) $(EXTRA_test_anubis_224_DEPENDENCIES) 
+	@rm -f test_anubis_224$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_224_OBJECTS) $(test_anubis_224_LDADD) $(LIBS)
+
+test_anubis_256$(EXEEXT): $(test_anubis_256_OBJECTS) $(test_anubis_256_DEPENDENCIES) $(EXTRA_test_anubis_256_DEPENDENCIES) 
+	@rm -f test_anubis_256$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_256_OBJECTS) $(test_anubis_256_LDADD) $(LIBS)
+
+test_anubis_288$(EXEEXT): $(test_anubis_288_OBJECTS) $(test_anubis_288_DEPENDENCIES) $(EXTRA_test_anubis_288_DEPENDENCIES) 
+	@rm -f test_anubis_288$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_288_OBJECTS) $(test_anubis_288_LDADD) $(LIBS)
+
+test_anubis_320$(EXEEXT): $(test_anubis_320_OBJECTS) $(test_anubis_320_DEPENDENCIES) $(EXTRA_test_anubis_320_DEPENDENCIES) 
+	@rm -f test_anubis_320$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_anubis_320_OBJECTS) $(test_anubis_320_LDADD) $(LIBS)
+
 timingsafe$(EXEEXT): $(timingsafe_OBJECTS) $(timingsafe_DEPENDENCIES) $(EXTRA_timingsafe_DEPENDENCIES) 
 	@rm -f timingsafe$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(timingsafe_OBJECTS) $(timingsafe_LDADD) $(LIBS)
@@ -1121,6 +1213,13 @@ include ./$(DEPDIR)/sha256test.Po
 include ./$(DEPDIR)/sha512test.Po
 include ./$(DEPDIR)/shatest.Po
 include ./$(DEPDIR)/ssltest.Po
+include ./$(DEPDIR)/test_anubis_128.Po
+include ./$(DEPDIR)/test_anubis_160.Po
+include ./$(DEPDIR)/test_anubis_192.Po
+include ./$(DEPDIR)/test_anubis_224.Po
+include ./$(DEPDIR)/test_anubis_256.Po
+include ./$(DEPDIR)/test_anubis_288.Po
+include ./$(DEPDIR)/test_anubis_320.Po
 include ./$(DEPDIR)/timingsafe.Po
 include ./$(DEPDIR)/utf8test.Po
 
@@ -1357,6 +1456,55 @@ pidwraptest.sh.log: pidwraptest.sh
 aes_wrap.log: aes_wrap$(EXEEXT)
 	@p='aes_wrap$(EXEEXT)'; \
 	b='aes_wrap'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_128.log: test_anubis_128$(EXEEXT)
+	@p='test_anubis_128$(EXEEXT)'; \
+	b='test_anubis_128'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_160.log: test_anubis_160$(EXEEXT)
+	@p='test_anubis_160$(EXEEXT)'; \
+	b='test_anubis_160'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_192.log: test_anubis_192$(EXEEXT)
+	@p='test_anubis_192$(EXEEXT)'; \
+	b='test_anubis_192'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_224.log: test_anubis_224$(EXEEXT)
+	@p='test_anubis_224$(EXEEXT)'; \
+	b='test_anubis_224'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_256.log: test_anubis_256$(EXEEXT)
+	@p='test_anubis_256$(EXEEXT)'; \
+	b='test_anubis_256'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_288.log: test_anubis_288$(EXEEXT)
+	@p='test_anubis_288$(EXEEXT)'; \
+	b='test_anubis_288'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_anubis_320.log: test_anubis_320$(EXEEXT)
+	@p='test_anubis_320$(EXEEXT)'; \
+	b='test_anubis_320'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

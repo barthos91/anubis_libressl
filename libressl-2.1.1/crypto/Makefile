@@ -193,7 +193,9 @@ am_libcrypto_la_OBJECTS = libcrypto_la-cpt_err.lo \
 	libcrypto_la-ex_data.lo libcrypto_la-malloc-wrapper.lo \
 	libcrypto_la-mem_clr.lo libcrypto_la-mem_dbg.lo \
 	libcrypto_la-o_init.lo libcrypto_la-o_str.lo \
-	libcrypto_la-o_time.lo aes/libcrypto_la-aes_cbc.lo \
+	libcrypto_la-o_time.lo anubis/libcrypto_la-anubis.lo \
+	anubis/libcrypto_la-anubis_cbc.lo \
+	anubis/libcrypto_la-anubis_misc.lo aes/libcrypto_la-aes_cbc.lo \
 	aes/libcrypto_la-aes_cfb.lo aes/libcrypto_la-aes_core.lo \
 	aes/libcrypto_la-aes_ctr.lo aes/libcrypto_la-aes_ecb.lo \
 	aes/libcrypto_la-aes_ige.lo aes/libcrypto_la-aes_misc.lo \
@@ -334,6 +336,7 @@ am_libcrypto_la_OBJECTS = libcrypto_la-cpt_err.lo \
 	evp/libcrypto_la-bio_md.lo evp/libcrypto_la-c_all.lo \
 	evp/libcrypto_la-c_allc.lo evp/libcrypto_la-c_alld.lo \
 	evp/libcrypto_la-digest.lo evp/libcrypto_la-e_aes.lo \
+	evp/libcrypto_la-e_anubis.lo \
 	evp/libcrypto_la-e_aes_cbc_hmac_sha1.lo \
 	evp/libcrypto_la-e_bf.lo evp/libcrypto_la-e_cast.lo \
 	evp/libcrypto_la-e_chacha.lo \
@@ -671,18 +674,20 @@ noinst_HEADERS = des/ncbc_enc.c compat/arc4random.h \
 	compat/arc4random_linux.h compat/arc4random_osx.h \
 	compat/arc4random_solaris.h compat/arc4random_win.h \
 	compat/chacha_private.h cryptlib.h md32_common.h o_time.h \
-	aes/aes_locl.h asn1/asn1_locl.h asn1/charmap.h bf/bf_locl.h \
-	bf/bf_pi.h bn/bn_lcl.h bn/bn_prime.h cast/cast_lcl.h \
-	cast/cast_s.h conf/conf_def.h des/des_locl.h des/spr.h \
-	dsa/dsa_locl.h ec/ec_lcl.h ecdh/ech_locl.h ecdsa/ecs_locl.h \
-	engine/eng_int.h evp/evp_locl.h idea/idea_lcl.h md4/md4_locl.h \
-	md5/md5_locl.h modes/modes_lcl.h objects/obj_dat.h \
-	objects/obj_xref.h rc2/rc2_locl.h rc4/rc4_locl.h \
-	ripemd/rmd_locl.h ripemd/rmdconst.h rsa/rsa_locl.h \
-	sha/sha_locl.h ui/ui_locl.h whrlpool/wp_locl.h x509/x509_lcl.h \
-	x509v3/ext_dat.h x509v3/pcy_int.h
+	anubis/anubis_locl.h aes/aes_locl.h asn1/asn1_locl.h \
+	asn1/charmap.h bf/bf_locl.h bf/bf_pi.h bn/bn_lcl.h \
+	bn/bn_prime.h cast/cast_lcl.h cast/cast_s.h conf/conf_def.h \
+	des/des_locl.h des/spr.h dsa/dsa_locl.h ec/ec_lcl.h \
+	ecdh/ech_locl.h ecdsa/ecs_locl.h engine/eng_int.h \
+	evp/evp_locl.h idea/idea_lcl.h md4/md4_locl.h md5/md5_locl.h \
+	modes/modes_lcl.h objects/obj_dat.h objects/obj_xref.h \
+	rc2/rc2_locl.h rc4/rc4_locl.h ripemd/rmd_locl.h \
+	ripemd/rmdconst.h rsa/rsa_locl.h sha/sha_locl.h ui/ui_locl.h \
+	whrlpool/wp_locl.h x509/x509_lcl.h x509v3/ext_dat.h \
+	x509v3/pcy_int.h
 libcrypto_la_SOURCES = cpt_err.c cryptlib.c cversion.c ex_data.c \
 	malloc-wrapper.c mem_clr.c mem_dbg.c o_init.c o_str.c o_time.c \
+	anubis/anubis.c anubis/anubis_cbc.c anubis/anubis_misc.c \
 	aes/aes_cbc.c aes/aes_cfb.c aes/aes_core.c aes/aes_ctr.c \
 	aes/aes_ecb.c aes/aes_ige.c aes/aes_misc.c aes/aes_ofb.c \
 	aes/aes_wrap.c asn1/a_bitstr.c asn1/a_bool.c asn1/a_bytes.c \
@@ -755,13 +760,13 @@ libcrypto_la_SOURCES = cpt_err.c cryptlib.c cversion.c ex_data.c \
 	engine/tb_store.c err/err.c err/err_all.c err/err_prn.c \
 	evp/bio_b64.c evp/bio_enc.c evp/bio_md.c evp/c_all.c \
 	evp/c_allc.c evp/c_alld.c evp/digest.c evp/e_aes.c \
-	evp/e_aes_cbc_hmac_sha1.c evp/e_bf.c evp/e_cast.c \
-	evp/e_chacha.c evp/e_chacha20poly1305.c evp/e_des.c \
-	evp/e_des3.c evp/e_idea.c evp/e_null.c evp/e_old.c evp/e_rc2.c \
-	evp/e_rc4.c evp/e_rc4_hmac_md5.c evp/e_xcbc_d.c evp/encode.c \
-	evp/evp_aead.c evp/evp_enc.c evp/evp_err.c evp/evp_key.c \
-	evp/evp_lib.c evp/evp_pbe.c evp/evp_pkey.c evp/m_dss.c \
-	evp/m_dss1.c evp/m_ecdsa.c evp/m_md4.c evp/m_md5.c \
+	evp/e_anubis.c evp/e_aes_cbc_hmac_sha1.c evp/e_bf.c \
+	evp/e_cast.c evp/e_chacha.c evp/e_chacha20poly1305.c \
+	evp/e_des.c evp/e_des3.c evp/e_idea.c evp/e_null.c evp/e_old.c \
+	evp/e_rc2.c evp/e_rc4.c evp/e_rc4_hmac_md5.c evp/e_xcbc_d.c \
+	evp/encode.c evp/evp_aead.c evp/evp_enc.c evp/evp_err.c \
+	evp/evp_key.c evp/evp_lib.c evp/evp_pbe.c evp/evp_pkey.c \
+	evp/m_dss.c evp/m_dss1.c evp/m_ecdsa.c evp/m_md4.c evp/m_md5.c \
 	evp/m_mdc2.c evp/m_null.c evp/m_ripemd.c evp/m_sha.c \
 	evp/m_sha1.c evp/m_sigver.c evp/m_wp.c evp/names.c \
 	evp/p5_crpt.c evp/p5_crpt2.c evp/p_dec.c evp/p_enc.c \
@@ -949,6 +954,18 @@ compat/libcompatnoopt_la-explicit_bzero.lo: compat/$(am__dirstamp) \
 
 libcompatnoopt.la: $(libcompatnoopt_la_OBJECTS) $(libcompatnoopt_la_DEPENDENCIES) $(EXTRA_libcompatnoopt_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libcompatnoopt_la_LINK)  $(libcompatnoopt_la_OBJECTS) $(libcompatnoopt_la_LIBADD) $(LIBS)
+anubis/$(am__dirstamp):
+	@$(MKDIR_P) anubis
+	@: > anubis/$(am__dirstamp)
+anubis/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) anubis/$(DEPDIR)
+	@: > anubis/$(DEPDIR)/$(am__dirstamp)
+anubis/libcrypto_la-anubis.lo: anubis/$(am__dirstamp) \
+	anubis/$(DEPDIR)/$(am__dirstamp)
+anubis/libcrypto_la-anubis_cbc.lo: anubis/$(am__dirstamp) \
+	anubis/$(DEPDIR)/$(am__dirstamp)
+anubis/libcrypto_la-anubis_misc.lo: anubis/$(am__dirstamp) \
+	anubis/$(DEPDIR)/$(am__dirstamp)
 aes/$(am__dirstamp):
 	@$(MKDIR_P) aes
 	@: > aes/$(am__dirstamp)
@@ -1625,6 +1642,8 @@ evp/libcrypto_la-digest.lo: evp/$(am__dirstamp) \
 	evp/$(DEPDIR)/$(am__dirstamp)
 evp/libcrypto_la-e_aes.lo: evp/$(am__dirstamp) \
 	evp/$(DEPDIR)/$(am__dirstamp)
+evp/libcrypto_la-e_anubis.lo: evp/$(am__dirstamp) \
+	evp/$(DEPDIR)/$(am__dirstamp)
 evp/libcrypto_la-e_aes_cbc_hmac_sha1.lo: evp/$(am__dirstamp) \
 	evp/$(DEPDIR)/$(am__dirstamp)
 evp/libcrypto_la-e_bf.lo: evp/$(am__dirstamp) \
@@ -2273,6 +2292,8 @@ mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f aes/*.$(OBJEXT)
 	-rm -f aes/*.lo
+	-rm -f anubis/*.$(OBJEXT)
+	-rm -f anubis/*.lo
 	-rm -f asn1/*.$(OBJEXT)
 	-rm -f asn1/*.lo
 	-rm -f bf/*.$(OBJEXT)
@@ -2392,6 +2413,9 @@ include aes/$(DEPDIR)/libcrypto_la-aes_ige.Plo
 include aes/$(DEPDIR)/libcrypto_la-aes_misc.Plo
 include aes/$(DEPDIR)/libcrypto_la-aes_ofb.Plo
 include aes/$(DEPDIR)/libcrypto_la-aes_wrap.Plo
+include anubis/$(DEPDIR)/libcrypto_la-anubis.Plo
+include anubis/$(DEPDIR)/libcrypto_la-anubis_cbc.Plo
+include anubis/$(DEPDIR)/libcrypto_la-anubis_misc.Plo
 include asn1/$(DEPDIR)/libcrypto_la-a_bitstr.Plo
 include asn1/$(DEPDIR)/libcrypto_la-a_bool.Plo
 include asn1/$(DEPDIR)/libcrypto_la-a_bytes.Plo
@@ -2677,6 +2701,7 @@ include evp/$(DEPDIR)/libcrypto_la-c_alld.Plo
 include evp/$(DEPDIR)/libcrypto_la-digest.Plo
 include evp/$(DEPDIR)/libcrypto_la-e_aes.Plo
 include evp/$(DEPDIR)/libcrypto_la-e_aes_cbc_hmac_sha1.Plo
+include evp/$(DEPDIR)/libcrypto_la-e_anubis.Plo
 include evp/$(DEPDIR)/libcrypto_la-e_bf.Plo
 include evp/$(DEPDIR)/libcrypto_la-e_cast.Plo
 include evp/$(DEPDIR)/libcrypto_la-e_chacha.Plo
@@ -3119,6 +3144,27 @@ libcrypto_la-o_time.lo: o_time.c
 #	$(AM_V_CC)source='o_time.c' object='libcrypto_la-o_time.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o libcrypto_la-o_time.lo `test -f 'o_time.c' || echo '$(srcdir)/'`o_time.c
+
+anubis/libcrypto_la-anubis.lo: anubis/anubis.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT anubis/libcrypto_la-anubis.lo -MD -MP -MF anubis/$(DEPDIR)/libcrypto_la-anubis.Tpo -c -o anubis/libcrypto_la-anubis.lo `test -f 'anubis/anubis.c' || echo '$(srcdir)/'`anubis/anubis.c
+	$(AM_V_at)$(am__mv) anubis/$(DEPDIR)/libcrypto_la-anubis.Tpo anubis/$(DEPDIR)/libcrypto_la-anubis.Plo
+#	$(AM_V_CC)source='anubis/anubis.c' object='anubis/libcrypto_la-anubis.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o anubis/libcrypto_la-anubis.lo `test -f 'anubis/anubis.c' || echo '$(srcdir)/'`anubis/anubis.c
+
+anubis/libcrypto_la-anubis_cbc.lo: anubis/anubis_cbc.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT anubis/libcrypto_la-anubis_cbc.lo -MD -MP -MF anubis/$(DEPDIR)/libcrypto_la-anubis_cbc.Tpo -c -o anubis/libcrypto_la-anubis_cbc.lo `test -f 'anubis/anubis_cbc.c' || echo '$(srcdir)/'`anubis/anubis_cbc.c
+	$(AM_V_at)$(am__mv) anubis/$(DEPDIR)/libcrypto_la-anubis_cbc.Tpo anubis/$(DEPDIR)/libcrypto_la-anubis_cbc.Plo
+#	$(AM_V_CC)source='anubis/anubis_cbc.c' object='anubis/libcrypto_la-anubis_cbc.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o anubis/libcrypto_la-anubis_cbc.lo `test -f 'anubis/anubis_cbc.c' || echo '$(srcdir)/'`anubis/anubis_cbc.c
+
+anubis/libcrypto_la-anubis_misc.lo: anubis/anubis_misc.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT anubis/libcrypto_la-anubis_misc.lo -MD -MP -MF anubis/$(DEPDIR)/libcrypto_la-anubis_misc.Tpo -c -o anubis/libcrypto_la-anubis_misc.lo `test -f 'anubis/anubis_misc.c' || echo '$(srcdir)/'`anubis/anubis_misc.c
+	$(AM_V_at)$(am__mv) anubis/$(DEPDIR)/libcrypto_la-anubis_misc.Tpo anubis/$(DEPDIR)/libcrypto_la-anubis_misc.Plo
+#	$(AM_V_CC)source='anubis/anubis_misc.c' object='anubis/libcrypto_la-anubis_misc.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o anubis/libcrypto_la-anubis_misc.lo `test -f 'anubis/anubis_misc.c' || echo '$(srcdir)/'`anubis/anubis_misc.c
 
 aes/libcrypto_la-aes_cbc.lo: aes/aes_cbc.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT aes/libcrypto_la-aes_cbc.lo -MD -MP -MF aes/$(DEPDIR)/libcrypto_la-aes_cbc.Tpo -c -o aes/libcrypto_la-aes_cbc.lo `test -f 'aes/aes_cbc.c' || echo '$(srcdir)/'`aes/aes_cbc.c
@@ -5045,6 +5091,13 @@ evp/libcrypto_la-e_aes.lo: evp/e_aes.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o evp/libcrypto_la-e_aes.lo `test -f 'evp/e_aes.c' || echo '$(srcdir)/'`evp/e_aes.c
 
+evp/libcrypto_la-e_anubis.lo: evp/e_anubis.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT evp/libcrypto_la-e_anubis.lo -MD -MP -MF evp/$(DEPDIR)/libcrypto_la-e_anubis.Tpo -c -o evp/libcrypto_la-e_anubis.lo `test -f 'evp/e_anubis.c' || echo '$(srcdir)/'`evp/e_anubis.c
+	$(AM_V_at)$(am__mv) evp/$(DEPDIR)/libcrypto_la-e_anubis.Tpo evp/$(DEPDIR)/libcrypto_la-e_anubis.Plo
+#	$(AM_V_CC)source='evp/e_anubis.c' object='evp/libcrypto_la-e_anubis.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -c -o evp/libcrypto_la-e_anubis.lo `test -f 'evp/e_anubis.c' || echo '$(srcdir)/'`evp/e_anubis.c
+
 evp/libcrypto_la-e_aes_cbc_hmac_sha1.lo: evp/e_aes_cbc_hmac_sha1.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcrypto_la_CFLAGS) $(CFLAGS) -MT evp/libcrypto_la-e_aes_cbc_hmac_sha1.lo -MD -MP -MF evp/$(DEPDIR)/libcrypto_la-e_aes_cbc_hmac_sha1.Tpo -c -o evp/libcrypto_la-e_aes_cbc_hmac_sha1.lo `test -f 'evp/e_aes_cbc_hmac_sha1.c' || echo '$(srcdir)/'`evp/e_aes_cbc_hmac_sha1.c
 	$(AM_V_at)$(am__mv) evp/$(DEPDIR)/libcrypto_la-e_aes_cbc_hmac_sha1.Tpo evp/$(DEPDIR)/libcrypto_la-e_aes_cbc_hmac_sha1.Plo
@@ -6724,6 +6777,7 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf aes/.libs aes/_libs
+	-rm -rf anubis/.libs anubis/_libs
 	-rm -rf asn1/.libs asn1/_libs
 	-rm -rf bf/.libs bf/_libs
 	-rm -rf bio/.libs bio/_libs
@@ -6890,6 +6944,8 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f aes/$(DEPDIR)/$(am__dirstamp)
 	-rm -f aes/$(am__dirstamp)
+	-rm -f anubis/$(DEPDIR)/$(am__dirstamp)
+	-rm -f anubis/$(am__dirstamp)
 	-rm -f asn1/$(DEPDIR)/$(am__dirstamp)
 	-rm -f asn1/$(am__dirstamp)
 	-rm -f bf/$(DEPDIR)/$(am__dirstamp)
@@ -6996,7 +7052,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	clean-noinstLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR) aes/$(DEPDIR) asn1/$(DEPDIR) bf/$(DEPDIR) bio/$(DEPDIR) bn/$(DEPDIR) buffer/$(DEPDIR) cast/$(DEPDIR) chacha/$(DEPDIR) cmac/$(DEPDIR) comp/$(DEPDIR) compat/$(DEPDIR) conf/$(DEPDIR) des/$(DEPDIR) dh/$(DEPDIR) dsa/$(DEPDIR) dso/$(DEPDIR) ec/$(DEPDIR) ecdh/$(DEPDIR) ecdsa/$(DEPDIR) engine/$(DEPDIR) err/$(DEPDIR) evp/$(DEPDIR) hmac/$(DEPDIR) idea/$(DEPDIR) krb5/$(DEPDIR) lhash/$(DEPDIR) md4/$(DEPDIR) md5/$(DEPDIR) mdc2/$(DEPDIR) modes/$(DEPDIR) objects/$(DEPDIR) ocsp/$(DEPDIR) pem/$(DEPDIR) pkcs12/$(DEPDIR) pkcs7/$(DEPDIR) poly1305/$(DEPDIR) rand/$(DEPDIR) rc2/$(DEPDIR) rc4/$(DEPDIR) ripemd/$(DEPDIR) rsa/$(DEPDIR) sha/$(DEPDIR) stack/$(DEPDIR) ts/$(DEPDIR) txt_db/$(DEPDIR) ui/$(DEPDIR) whrlpool/$(DEPDIR) x509/$(DEPDIR) x509v3/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) aes/$(DEPDIR) anubis/$(DEPDIR) asn1/$(DEPDIR) bf/$(DEPDIR) bio/$(DEPDIR) bn/$(DEPDIR) buffer/$(DEPDIR) cast/$(DEPDIR) chacha/$(DEPDIR) cmac/$(DEPDIR) comp/$(DEPDIR) compat/$(DEPDIR) conf/$(DEPDIR) des/$(DEPDIR) dh/$(DEPDIR) dsa/$(DEPDIR) dso/$(DEPDIR) ec/$(DEPDIR) ecdh/$(DEPDIR) ecdsa/$(DEPDIR) engine/$(DEPDIR) err/$(DEPDIR) evp/$(DEPDIR) hmac/$(DEPDIR) idea/$(DEPDIR) krb5/$(DEPDIR) lhash/$(DEPDIR) md4/$(DEPDIR) md5/$(DEPDIR) mdc2/$(DEPDIR) modes/$(DEPDIR) objects/$(DEPDIR) ocsp/$(DEPDIR) pem/$(DEPDIR) pkcs12/$(DEPDIR) pkcs7/$(DEPDIR) poly1305/$(DEPDIR) rand/$(DEPDIR) rc2/$(DEPDIR) rc4/$(DEPDIR) ripemd/$(DEPDIR) rsa/$(DEPDIR) sha/$(DEPDIR) stack/$(DEPDIR) ts/$(DEPDIR) txt_db/$(DEPDIR) ui/$(DEPDIR) whrlpool/$(DEPDIR) x509/$(DEPDIR) x509v3/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -7042,7 +7098,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR) aes/$(DEPDIR) asn1/$(DEPDIR) bf/$(DEPDIR) bio/$(DEPDIR) bn/$(DEPDIR) buffer/$(DEPDIR) cast/$(DEPDIR) chacha/$(DEPDIR) cmac/$(DEPDIR) comp/$(DEPDIR) compat/$(DEPDIR) conf/$(DEPDIR) des/$(DEPDIR) dh/$(DEPDIR) dsa/$(DEPDIR) dso/$(DEPDIR) ec/$(DEPDIR) ecdh/$(DEPDIR) ecdsa/$(DEPDIR) engine/$(DEPDIR) err/$(DEPDIR) evp/$(DEPDIR) hmac/$(DEPDIR) idea/$(DEPDIR) krb5/$(DEPDIR) lhash/$(DEPDIR) md4/$(DEPDIR) md5/$(DEPDIR) mdc2/$(DEPDIR) modes/$(DEPDIR) objects/$(DEPDIR) ocsp/$(DEPDIR) pem/$(DEPDIR) pkcs12/$(DEPDIR) pkcs7/$(DEPDIR) poly1305/$(DEPDIR) rand/$(DEPDIR) rc2/$(DEPDIR) rc4/$(DEPDIR) ripemd/$(DEPDIR) rsa/$(DEPDIR) sha/$(DEPDIR) stack/$(DEPDIR) ts/$(DEPDIR) txt_db/$(DEPDIR) ui/$(DEPDIR) whrlpool/$(DEPDIR) x509/$(DEPDIR) x509v3/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) aes/$(DEPDIR) anubis/$(DEPDIR) asn1/$(DEPDIR) bf/$(DEPDIR) bio/$(DEPDIR) bn/$(DEPDIR) buffer/$(DEPDIR) cast/$(DEPDIR) chacha/$(DEPDIR) cmac/$(DEPDIR) comp/$(DEPDIR) compat/$(DEPDIR) conf/$(DEPDIR) des/$(DEPDIR) dh/$(DEPDIR) dsa/$(DEPDIR) dso/$(DEPDIR) ec/$(DEPDIR) ecdh/$(DEPDIR) ecdsa/$(DEPDIR) engine/$(DEPDIR) err/$(DEPDIR) evp/$(DEPDIR) hmac/$(DEPDIR) idea/$(DEPDIR) krb5/$(DEPDIR) lhash/$(DEPDIR) md4/$(DEPDIR) md5/$(DEPDIR) mdc2/$(DEPDIR) modes/$(DEPDIR) objects/$(DEPDIR) ocsp/$(DEPDIR) pem/$(DEPDIR) pkcs12/$(DEPDIR) pkcs7/$(DEPDIR) poly1305/$(DEPDIR) rand/$(DEPDIR) rc2/$(DEPDIR) rc4/$(DEPDIR) ripemd/$(DEPDIR) rsa/$(DEPDIR) sha/$(DEPDIR) stack/$(DEPDIR) ts/$(DEPDIR) txt_db/$(DEPDIR) ui/$(DEPDIR) whrlpool/$(DEPDIR) x509/$(DEPDIR) x509v3/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

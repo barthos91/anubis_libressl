@@ -62,9 +62,9 @@
  * [including the GNU Public Licence.]
  */
 
-#define NUM_NID 938
-#define NUM_SN 931
-#define NUM_LN 931
+#define NUM_NID 945
+#define NUM_SN 938
+#define NUM_LN 938
 #define NUM_OBJ 874
 
 static const unsigned char lvalues[6119]={
@@ -2448,6 +2448,13 @@ static const ASN1_OBJECT nid_objs[NUM_NID]={
 	&(lvalues[6099]),0},
 {"FRP256v1","FRP256v1",NID_FRP256v1,10,&(lvalues[6108]),0},
 {"ChaCha","chacha",NID_chacha20,0,NULL,0},
+{"ANUBIS-128-CBC","anubis-128-cbc",NID_anubis_128_cbc,0,NULL,0},
+{"ANUBIS-160-CBC","anubis-160-cbc",NID_anubis_160_cbc,0,NULL,0},
+{"ANUBIS-192-CBC","anubis-192-cbc",NID_anubis_192_cbc,0,NULL,0},
+{"ANUBIS-224-CBC","anubis-224-cbc",NID_anubis_224_cbc,0,NULL,0},
+{"ANUBIS-256-CBC","anubis-256-cbc",NID_anubis_256_cbc,0,NULL,0},
+{"ANUBIS-288-CBC","anubis-288-cbc",NID_anubis_288_cbc,0,NULL,0},
+{"ANUBIS-320-CBC","anubis-320-cbc",NID_anubis_320_cbc,0,NULL,0},
 };
 
 static const unsigned int sn_objs[NUM_SN]={
@@ -2478,6 +2485,13 @@ static const unsigned int sn_objs[NUM_SN]={
 426,	/* "AES-256-ECB" */
 428,	/* "AES-256-OFB" */
 914,	/* "AES-256-XTS" */
+938,	/* "ANUBIS-128-CBC" */
+939,	/* "ANUBIS-160-CBC" */
+940,	/* "ANUBIS-192-CBC" */
+941,	/* "ANUBIS-224-CBC" */
+942,	/* "ANUBIS-256-CBC" */
+943,	/* "ANUBIS-288-CBC" */
+944,	/* "ANUBIS-320-CBC" */
 91,	/* "BF-CBC" */
 93,	/* "BF-CFB" */
 92,	/* "BF-ECB" */
@@ -3562,6 +3576,13 @@ static const unsigned int ln_objs[NUM_LN]={
 428,	/* "aes-256-ofb" */
 914,	/* "aes-256-xts" */
 376,	/* "algorithm" */
+938,	/* "anubis-128-cbc" */
+939,	/* "anubis-160-cbc" */
+940,	/* "anubis-192-cbc" */
+941,	/* "anubis-224-cbc" */
+942,	/* "anubis-256-cbc" */
+943,	/* "anubis-288-cbc" */
+944,	/* "anubis-320-cbc" */
 484,	/* "associatedDomain" */
 485,	/* "associatedName" */
 501,	/* "audio" */
