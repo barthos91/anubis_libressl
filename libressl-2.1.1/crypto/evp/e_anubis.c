@@ -88,7 +88,7 @@ static const EVP_CIPHER anubis_288_cipher = {
 };
 
 static const EVP_CIPHER anubis_320_cipher = {
-	.nid = NID_anubis_288_cbc,
+	.nid = NID_anubis_320_cbc,
 	.block_size = 16,
 	.key_len = 288 / 8,
 	.iv_len = 16,
